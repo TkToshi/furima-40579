@@ -27,7 +27,7 @@
 | item_category_id   | integer      | null: false,                  |
 | item_condition_id  | integer      | null: false,                  |
 | shipping_fee_id    | integer      | null: false,                  |
-| shipping_region_id | integer      | null: false,                  |
+| prefecture_id      | integer      | null: false,                  |
 | shipping_day_id    | integer      | null: false,                  |
 | item_price         | integer      | null: false,                  |
 | user               | references   | null: false, foreign_key:true |
@@ -47,14 +47,14 @@
 
 - belongs_to : user
 - belongs_to : item
-- belongs_to : residence
+- has_one    : residence
 
 ## residencesテーブル
 | Column             | Type         | Options                            |
 | ------------------ | ------------ | ---------------------------------- |
 | post_code          | string       | null: false,                       |
 | prefecture_id      | integer      | null: false,                       |
-| municipalities     | string       | null: false,                       |
+| municipality       | string       | null: false,                       |
 | house_number       | string       | null: false,                       |
 | building_name      | string       |                                    |
 | phone_number       | string       | null: false,                       |
