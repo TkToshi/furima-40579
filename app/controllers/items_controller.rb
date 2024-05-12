@@ -2,6 +2,8 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, except: :index
 
   def index
+    @items = Item.all.order('created_at DESC')
+    # @order = Order.all
   end
 
   def new
@@ -17,9 +19,9 @@ class ItemsController < ApplicationController
     end
   end
 
-  #def show
+  # def show
   #  @item = Item.find(params[:id])
-  #end
+  # end
 
   private
 
