@@ -14,7 +14,7 @@ class OrdersController < ApplicationController
     @item = Item.find(params[:item_id])
     @order_residence = OrderResidence.new(order_residence_params)
     if @order_residence.valid?
-      pay_item = @item
+      pay_item
       @order_residence.save
       redirect_to root_path
     else
@@ -27,13 +27,14 @@ class OrdersController < ApplicationController
 
   def order_residence_params
     params.require(:order_residence).permit(:post_code, :prefecture_id, :municipality, :house_number, :building_name, :phone_number, \
-                                            :order_id).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
+                                            ).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
   end
 
   def pay_item
+    
     Payjp.api_key = ENV["PAYJP_SECRET_KEY"]  # 自身のPAY.JPテスト秘密鍵
        Payjp::Charge.create(
-         amount: @item.price,  # 商品の値段
+         amount: @item.item_price,  # 商品の値段
          card: order_residence_params[:token],    # カードトークン
          currency: 'jpy'                 # 通貨の種類（日本円）
        )
